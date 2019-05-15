@@ -5,7 +5,7 @@ import util.ApplicationException;
 
 
 
-public class Connector {
+public class Conector {
 	private String dbDriver="com.mysql.jdbc.Driver";
 	private String user="root";
 	private String pass="root";
@@ -13,19 +13,22 @@ public class Connector {
 	private Connection conn;
 	private int cantConn=0;
 	
-	
-	private void Conexion() throws ApplicationException{
-		try{
+	private Conector() throws ApplicationException{
+		try {
 			Class.forName(dbDriver);
-			conn=DriverManager.getConnection(server,user,pass);
-			System.out.println("Conexion exitosa!!!");
-			
+			conn = DriverManager.getConnection(server, user, pass);
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new ApplicationException("Error en el JDBC", e);
 		}
-		catch(ClassNotFoundException | SQLException e){
-			System.err.println();
-			e.printStackTrace();
-			
+	}
+	
+	private static Conector instancia;
+	
+	public static Conector getInstancia() throws ApplicationException{
+		if(instancia==null){
+			instancia = new Conector();
 		}
+		return instancia;
 	}
 
 	public Connection abrirConn(){
