@@ -29,6 +29,10 @@ public class Procedimiento implements Serializable {
 		return idProcedimiento;
 	}
 	
+	public void setIdProcedimiento(int idProcedimiento){
+		this.idProcedimiento = idProcedimiento;
+	}
+	
 	public int getCodProcedimiento() {
 		return codProcedimiento;
 	}
