@@ -1,6 +1,8 @@
 package data;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import entidades.Procedimiento;
 import util.ApplicationException;
 
@@ -121,6 +123,35 @@ public class DataProcedimiento {
 			catch(SQLException | ApplicationException e){e.printStackTrace();}
 		}
 		return pro;
+	}
+	
+	public ArrayList<Procedimiento> listarProcedimientos(){
+		ArrayList<Procedimiento> listado = new ArrayList<>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql ="SELECT * FROM procedimientos ORDER BY codProcedimiento";
+		try{
+			stmt= Conector.getInstancia().abrirConn().prepareStatement(sql);
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()){
+				Procedimiento p = new Procedimiento();
+				p.setIdProcedimiento(rs.getInt(1));
+				p.setCodProcedimiento(rs.getInt(2));
+				p.setDescProcedimiento(rs.getString(3));
+				p.setComplejidad(rs.getInt(4));
+				listado.add(p);
+			}
+		}
+		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		finally{
+			try{
+				if(stmt != null) stmt.close();
+				if(rs != null) rs.close();
+				Conector.getInstancia().cerrarConn();
+			}
+			catch(SQLException | ApplicationException e) {e.printStackTrace();}
+		}
+		return listado;
 	}
 
 }
