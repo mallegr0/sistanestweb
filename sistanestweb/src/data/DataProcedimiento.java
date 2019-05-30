@@ -10,6 +10,14 @@ public class DataProcedimiento {
 	
 	public DataProcedimiento() {};
 	
+	private void cerrar(PreparedStatement stmt, ResultSet rs){
+		try{
+			if(stmt != null) stmt.close();
+			if(rs != null) rs.close();
+			Conector.getInstancia().cerrarConn();
+		}
+		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+	}
 		
 	public boolean altaProcedimiento(Procedimiento p){
 		ResultSet rs = null;
@@ -35,16 +43,7 @@ public class DataProcedimiento {
 		} catch (SQLException | ApplicationException e) {
 			e.printStackTrace();
 			return false;
-		} finally {
-			try {
-				if(rs!= null )rs.close();
-				if(stmt != null) stmt.close();
-				Conector.getInstancia().cerrarConn();
-			}
-			catch(SQLException | ApplicationException e){
-				e.printStackTrace();
-			}
-		}
+		} finally { cerrar(stmt, rs); }
 	}
 
 	public boolean modificaProcedimiento(Procedimiento p){
@@ -66,12 +65,7 @@ public class DataProcedimiento {
 		catch (SQLException | ApplicationException e){ 
 			e.printStackTrace();
 			return false;}
-		finally {
-			try{
-				if(stmt != null) stmt.close();
-				Conector.getInstancia().cerrarConn();
-			}catch(SQLException | ApplicationException e) {e.printStackTrace();}
-		}
+		finally { cerrar(stmt, null);}
 	}
 
 	public boolean bajaProcedimiento(Procedimiento p){
@@ -89,13 +83,7 @@ public class DataProcedimiento {
 			e.printStackTrace();
 			return false;
 		}
-		finally{
-			try{
-				if(stmt != null) stmt.close();
-				Conector.getInstancia().cerrarConn();
-			}
-			catch(SQLException | ApplicationException e){ e.printStackTrace();}
-		}
+		finally{ cerrar(stmt, null); }
 	}
 
 	public Procedimiento consultaProcedimiento(Procedimiento p){
@@ -114,14 +102,7 @@ public class DataProcedimiento {
 				}
 			}
 		catch(SQLException | ApplicationException e){ e.printStackTrace();}
-		finally{
-			try{
-				if(rs!= null) rs.close();
-				if(stmt != null) stmt.close();
-				Conector.getInstancia().cerrarConn();
-			}
-			catch(SQLException | ApplicationException e){e.printStackTrace();}
-		}
+		finally{ cerrar(stmt, rs);}
 		return pro;
 	}
 	
@@ -143,14 +124,7 @@ public class DataProcedimiento {
 			}
 		}
 		catch(SQLException | ApplicationException e){ e.printStackTrace();}
-		finally{
-			try{
-				if(stmt != null) stmt.close();
-				if(rs != null) rs.close();
-				Conector.getInstancia().cerrarConn();
-			}
-			catch(SQLException | ApplicationException e) {e.printStackTrace();}
-		}
+		finally{ cerrar(stmt, rs); }
 		return listado;
 	}
 

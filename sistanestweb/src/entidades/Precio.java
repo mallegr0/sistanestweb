@@ -1,30 +1,30 @@
 package entidades;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 
 public class Precio implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private Timestamp fecha;
+	private Date fecha;
 	private int idSanatorio, idTpoAnestesia;
 	private float valor;
 	
 	public Precio(){};
 	
-	public Precio(Timestamp f, int is, int ita, float v){
+	public Precio(Date f, int is, int ita, float v){
 		this.fecha = f;
 		this.idSanatorio = is;
 		this.idTpoAnestesia = ita;
 		this.valor = v;
 	}
 
-	public Timestamp getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Timestamp fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

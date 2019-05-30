@@ -2,18 +2,20 @@ package entidades;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.sql.Date;
 
 public class Anestesia implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private int idAnestesia, nroAfiliado, nocturno, feriado, fds, nroTalon, nroVias, edad, idMedico;
 	private int idAnestesista, idSanatorio, idOS;
-	private Timestamp fecPrestacion, fecARA, fecRendicion, FecCarga;
+	private Timestamp fecPrestacion;
+	private Date fecARA, fecRendicion, FecCarga;
 	private String afiliado, usuario;
 	
 	public Anestesia() {};
 	
-	public Anestesia(int ia, Timestamp fp, Timestamp fa, Timestamp fr, Timestamp fc, String a, int na, 
+	public Anestesia(int ia, Timestamp fp, Date fa, Date fr, Date fc, String a, int na, 
 			int n, int f, int fd, int nt, int nv, int e, String u, int im, int ida, int is, int io){
 		this.idAnestesia = ia;
 		this.fecPrestacion = fp;
@@ -139,27 +141,27 @@ public class Anestesia implements Serializable{
 		this.fecPrestacion = fecPrestacion;
 	}
 
-	public Timestamp getFecARA() {
+	public Date getFecARA() {
 		return fecARA;
 	}
 
-	public void setFecARA(Timestamp fecARA) {
+	public void setFecARA(Date fecARA) {
 		this.fecARA = fecARA;
 	}
 
-	public Timestamp getFecRendicion() {
+	public Date getFecRendicion() {
 		return fecRendicion;
 	}
 
-	public void setFecRendicion(Timestamp fecRendicion) {
+	public void setFecRendicion(Date fecRendicion) {
 		this.fecRendicion = fecRendicion;
 	}
 
-	public Timestamp getFecCarga() {
+	public Date getFecCarga() {
 		return FecCarga;
 	}
 
-	public void setFecCarga(Timestamp fecCarga) {
+	public void setFecCarga(Date fecCarga) {
 		FecCarga = fecCarga;
 	}
 

@@ -27,6 +27,10 @@ public class Medico implements Serializable{
 		return idMedico;
 	}
 	
+	public void setIdMedico(int idMedico){
+		this.idMedico = idMedico;
+	}
+	
 	public String getNombreMedico() {
 		return nombreMedico;
 	}
