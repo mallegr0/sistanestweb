@@ -27,5 +27,9 @@ public class Sanatorio implements Serializable{
 		return idSanatorio;
 	}
 	
+	public void setIdSanatorio(int idSanatorio){
+		this.idSanatorio = idSanatorio;
+	}
+	
 	
 }
