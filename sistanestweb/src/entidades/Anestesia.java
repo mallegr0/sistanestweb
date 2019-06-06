@@ -8,7 +8,7 @@ public class Anestesia implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private int idAnestesia, nroAfiliado, nocturno, feriado, fds, nroTalon, nroVias, edad, idMedico;
-	private int idAnestesista, idSanatorio, idOS;
+	private int idAnestesista, idSanatorio, idOS, idTpoAnestesia;
 	private Timestamp fecPrestacion;
 	private Date fecARA, fecRendicion, FecCarga;
 	private String afiliado, usuario;
@@ -16,7 +16,7 @@ public class Anestesia implements Serializable{
 	public Anestesia() {};
 	
 	public Anestesia(int ia, Timestamp fp, Date fa, Date fr, Date fc, String a, int na, 
-			int n, int f, int fd, int nt, int nv, int e, String u, int im, int ida, int is, int io){
+			int n, int f, int fd, int nt, int nv, int e, String u, int im, int ida, int is, int io, int ita){
 		this.idAnestesia = ia;
 		this.fecPrestacion = fp;
 		this.fecARA = fa;
@@ -35,6 +35,7 @@ public class Anestesia implements Serializable{
 		this.idAnestesista = ida;
 		this.idSanatorio = is;
 		this.idOS = io;
+		this.idTpoAnestesia = ita;
 	}
 
 	public int getIdAnestesia() {
@@ -181,6 +182,13 @@ public class Anestesia implements Serializable{
 		this.usuario = usuario;
 	}
 	
+	public int getIdTpoAnestesia() {
+		return idTpoAnestesia;
+	}
+
+	public void setIdTpoAnestesia(int idTpoAnestesia) {
+		this.idTpoAnestesia = idTpoAnestesia;
+	}
 	
 
 }
