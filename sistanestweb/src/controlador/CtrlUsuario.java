@@ -6,11 +6,13 @@ import data.DataUsuario;
 import entidades.Usuario;
 import util.ApplicationException;
 
+
 public class CtrlUsuario {
 	
 	public CtrlUsuario(){}
 	
 	private DataUsuario du = null;
+
 	
 	public boolean altaUsuario(Usuario u) throws ApplicationException{
 		du = new DataUsuario();

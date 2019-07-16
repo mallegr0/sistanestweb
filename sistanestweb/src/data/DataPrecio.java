@@ -82,7 +82,7 @@ public class DataPrecio {
 		finally{ cerrar(stmt, null);}
 	}
 
-	public Precio ConsultaPrecio(Precio p){
+	public Precio consultaPrecio(Precio p){
 		Precio rta = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
