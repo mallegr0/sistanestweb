@@ -42,12 +42,11 @@ public class DataProcedimientoAnestesia {
 	
 	public boolean bajaProcedimientoAnestesia(ProcedimientoAnestesia pa){
 		PreparedStatement stmt = null;
-		String sql = "DELETE FROM procedimientos_anestesias WHERE codProcedimiento = ? AND idAnestsia = ?";
+		String sql = "DELETE FROM procedimientos_anestesias WHERE  idAnestesia = ?";
 		
 		try {
 			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
-			stmt.setInt(1, pa.getCodProcedimiento());
-			stmt.setInt(2, pa.getIdAnestesia());
+			stmt.setInt(1, pa.getIdAnestesia());
 			
 			stmt.execute();
 			return true;
@@ -126,5 +125,29 @@ public class DataProcedimientoAnestesia {
 		finally { cerrar(stmt,null); }
 		return listado;
 	}
+	
+	public ArrayList<ProcedimientoAnestesia> listarProcedimientoPorAnestesia(int id){
+		ArrayList<ProcedimientoAnestesia> listado = new ArrayList<>();
+		ProcedimientoAnestesia pa = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM procedimientos_anestesias WHERE idAnestesia = ? ORDER BY idProcedimiento";
+		
+		try {
+			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt.setInt(1, id);
+			
+			rs = stmt.executeQuery();
 
+			if(rs != null && rs.next()){
+				pa = new ProcedimientoAnestesia();
+				pa.setCodProcedimiento(rs.getInt(1));
+				pa.setIdAnestesia(rs.getInt(2));
+				listado.add(pa);
+			}
+		}
+		catch (SQLException | ApplicationException e) { e.printStackTrace();}
+		finally { cerrar(stmt,null); }
+		return listado;
+	}
 }
