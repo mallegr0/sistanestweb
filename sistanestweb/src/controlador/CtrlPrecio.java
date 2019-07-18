@@ -32,4 +32,9 @@ public class CtrlPrecio {
 		return dp.ListarPrecio(p);
 	}
 	
+	public Precio ultimoPrecioSanatorio(Integer id) throws ApplicationException{
+		dp = new DataPrecio();
+		return dp.ultimoPrecioSanatorio(id);
+	}
+	
 }

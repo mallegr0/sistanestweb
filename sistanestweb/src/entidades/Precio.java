@@ -8,15 +8,14 @@ public class Precio implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private Date fecha;
-	private int idSanatorio, idTpoAnestesia;
+	private int idSanatorio;
 	private float valor;
 	
 	public Precio(){};
 	
-	public Precio(Date f, int is, int ita, float v){
+	public Precio(Date f, int is, float v){
 		this.fecha = f;
 		this.idSanatorio = is;
-		this.idTpoAnestesia = ita;
 		this.valor = v;
 	}
 
@@ -34,14 +33,6 @@ public class Precio implements Serializable{
 
 	public void setIdSanatorio(int idSanatorio) {
 		this.idSanatorio = idSanatorio;
-	}
-
-	public int getIdTpoAnestesia() {
-		return idTpoAnestesia;
-	}
-
-	public void setIdTpoAnestesia(int idTpoAnestesia) {
-		this.idTpoAnestesia = idTpoAnestesia;
 	}
 
 	public float getValor() {

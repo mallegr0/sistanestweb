@@ -131,7 +131,7 @@ public class DataProcedimientoAnestesia {
 		ProcedimientoAnestesia pa = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM procedimientos_anestesias WHERE idAnestesia = ? ORDER BY idProcedimiento";
+		String sql = "SELECT * FROM procedimientos_anestesias WHERE idAnestesia = ? ORDER BY codProcedimiento";
 		
 		try {
 			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
