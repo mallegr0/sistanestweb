@@ -18,23 +18,23 @@
 	</head>
 	<body>
 		<!--CABECERA DE PAGINA -->
-		<header class="w3-container w3-purple w3-center" style="padding: 32px 16px">
+		<header class="w3-container w3-deep-purple w3-center" style="padding: 32px 16px">
 			<h1 class="w3-margin w3-xxxlarge">SISTANEST Web</h1>
 		</header>
 
 		<!--FORM DEL LOGIN -->
-		<section class="w3-container w3-padding w3-margin">
-			<!--<h1>TAREAS A HACER EN EL LOGIN</h1>
-			<ol>
-				<li style="background-color: green">hacer formulario de login</li>
-				<li style="background-color: green">hacer servlet de login</li>
-				<li style="background-color: green">hacer pie de pagina con mis datos</li>
-			</ol>
+		<section class="w3-row-padding w3-padding-64 w3-container ">
+			<div class="w3-content w3-text-deep-purple">
+				<!--<h1>TAREAS A HACER EN EL LOGIN</h1>
+				<ol>
+					<li style="background-color: green">hacer formulario de login</li>
+					<li style="background-color: green">hacer servlet de login</li>
+					<li style="background-color: green">hacer pie de pagina con mis datos</li>
+				</ol>
 
-			<br>-->
-			<br>
+			<!-- Formulario-->
 			<div class="w3-quarter w3-container"></div>
-			<form action="" class="w3-container w3-card w3-light-grey w3-text-purple w3-margin w3-half w3-center">
+			<form action="" class="w3-container w3-card-4 w3-light-grey w3-text-deep-purple w3-margin w3-half">
 				<div class="w3-row w3-section">
 					<div class="w3-col" style="width: 50px"><i class="w3-xxlarge fa fa-user"></i></div>
 					<div class="w3-rest"><input  class="w3-input w3-border" type="text" name="usuario" placeholder="Usuario"></div>
@@ -43,14 +43,14 @@
 					<div class="w3-col" style="width: 50px"><i class="w3-xxlarge fa fa-key"></i></div>
 					<div class="w3-rest"><input  class="w3-input w3-border" type="password" name="password" placeholder="Contraseña"></div>
 				</div>
-				<br>
-				<button class="w3-btn w3-block w3-section w3-purple w3-ripple w3-padding">Ingresar</button>
+				
+				<button class="w3-btn w3-block w3-section w3-deep-purple w3-ripple w3-padding w3-hover-teal">Ingresar</button>
 			</form>
 			<div class="w3-quarter w3-container"></div>
 		</section>
 
 		<!--PIE DE PAGINA -->
-		<footer class="w3-container w3-center w3-purple w3-opacity w3-bottom">
+		<footer class="w3-container w3-padding w3-center w3-opacity w3-deep-purple w3-bottom">
 			<p><strong>Desarrollador: </strong>Matias Allegranza - Leg. </p>
 			<p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
 		</footer>
