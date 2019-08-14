@@ -34,7 +34,7 @@
 
 			<!-- Formulario-->
 			<div class="w3-quarter w3-container"></div>
-			<form action="" class="w3-container w3-card-4 w3-light-grey w3-text-deep-purple w3-margin w3-half">
+			<form action="LoginUsr" id="LoginUsr" method="post" class="w3-container w3-card-4 w3-light-grey w3-text-deep-purple w3-margin w3-half">
 				<div class="w3-row w3-section">
 					<div class="w3-col" style="width: 50px"><i class="w3-xxlarge fa fa-user"></i></div>
 					<div class="w3-rest"><input  class="w3-input w3-border" type="text" name="usuario" placeholder="Usuario"></div>
