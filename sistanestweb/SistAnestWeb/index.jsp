@@ -30,7 +30,10 @@
 					<li style="color: red">hacer servlet de login</li>
 					<li style="color: red">hacer pie de pagina con mis datos</li>
 				</ol>
-
+			<h3 style="background-color: yellow; color: white">ya esta el login con la conexion a la bbdd. 
+hacer las paginas de Anestesista, gestor y Administrador.
+testear las consultas sql con el administrador.
+mejorar el pie de pagina que quede estatico cuando se achica.</h3>
 			<!-- Formulario-->
 			<div class="w3-quarter w3-container"></div>
 			<form action="Login" id="Login" method="post" class="w3-container w3-card-4 w3-light-grey w3-text-deep-purple w3-margin w3-half">
