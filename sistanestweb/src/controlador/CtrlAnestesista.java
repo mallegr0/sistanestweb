@@ -37,7 +37,7 @@ public class CtrlAnestesista {
 		return da.listarAnestesista();
 	}
 
-	public Anestesista buscarNombre(Anestesista a){
+	public Anestesista buscarNombre(Anestesista a) throws ApplicationException{
 		da = new DataAnestesista();
 		return da.buscaNombre(a);
 	}

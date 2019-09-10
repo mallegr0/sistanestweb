@@ -10,22 +10,24 @@ public class DataProcedimiento {
 	
 	public DataProcedimiento() {};
 	
+	private Conector conn = new Conector();
+	
 	private void cerrar(PreparedStatement stmt, ResultSet rs){
 		try{
 			if(stmt != null) stmt.close();
 			if(rs != null) rs.close();
-			Conector.getInstancia().cerrarConn();
+			conn.cerrarConn();
 		}
 		catch(SQLException | ApplicationException e){ e.printStackTrace();}
 	}
 		
-	public boolean altaProcedimiento(Procedimiento p){
+	public boolean altaProcedimiento(Procedimiento p) throws ApplicationException{
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
 		String sql = "INSERT INTO procedimientos "
 				+ "(idProcedimiento,codProcedimiento, descProcedimiento, complejidad) VALUES (?,?,?,?)";
 		try {
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = conn.abrirConn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			stmt.setInt(1, p.getIdProcedimiento());
 			stmt.setInt(2, p.getCodProcedimiento());
@@ -40,20 +42,20 @@ public class DataProcedimiento {
 			}
 			return true;
 			
-		} catch (SQLException | ApplicationException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		} finally { cerrar(stmt, rs); }
 	}
 
-	public boolean modificaProcedimiento(Procedimiento p){
+	public boolean modificaProcedimiento(Procedimiento p) throws ApplicationException{
 		
 		PreparedStatement stmt = null;
 		String sql = "UPDATE procedimientos SET (codProcedimiento = ?, descProcedimiento = ?, complejidad = ?)"
 				+ " WHERE idProcedimiento = ?";
 		
 		try {
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, p.getCodProcedimiento());
 			stmt.setString(2, p.getDescProcedimiento());
 			stmt.setInt(3, p.getComplejidad());
@@ -62,37 +64,37 @@ public class DataProcedimiento {
 			return true;
 			
 		} 
-		catch (SQLException | ApplicationException e){ 
+		catch (SQLException e){ 
 			e.printStackTrace();
 			return false;}
 		finally { cerrar(stmt, null);}
 	}
 
-	public boolean bajaProcedimiento(Procedimiento p){
+	public boolean bajaProcedimiento(Procedimiento p) throws ApplicationException{
 		
 		PreparedStatement stmt = null;
 		String sql = "DELETE FROM procedimientos WHERE idProcedimiento = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, p.getIdProcedimiento());
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, null); }
 	}
 
-	public Procedimiento consultaProcedimiento(Procedimiento p){
+	public Procedimiento consultaProcedimiento(Procedimiento p) throws ApplicationException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		Procedimiento pro = null;
 		String sql = "SELECT * FROM procedimiento WHERE idProcedimiento = ?";
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, p.getIdProcedimiento());
 			
 			rs = stmt.executeQuery();
@@ -101,18 +103,18 @@ public class DataProcedimiento {
 						rs.getString("descProcedimiento"), rs.getInt("complejidad"));
 				}
 			}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return pro;
 	}
 	
-	public ArrayList<Procedimiento> listarProcedimientos(){
+	public ArrayList<Procedimiento> listarProcedimientos() throws ApplicationException{
 		ArrayList<Procedimiento> listado = new ArrayList<>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql ="SELECT * FROM procedimientos ORDER BY codProcedimiento";
 		try{
-			stmt= Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt= conn.abrirConn().prepareStatement(sql);
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()){
 				Procedimiento p = new Procedimiento();
@@ -123,7 +125,7 @@ public class DataProcedimiento {
 				listado.add(p);
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs); }
 		return listado;
 	}

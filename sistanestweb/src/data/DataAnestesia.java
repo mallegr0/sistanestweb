@@ -13,15 +13,17 @@ public class DataAnestesia {
 	
 	public DataAnestesia() {}
 	
+	private Conector conn = new Conector(); 
+	
 	private void cerrar(PreparedStatement stmt, ResultSet rs){
 		try {
 			if(stmt != null) stmt.close();
 			if(rs != null) rs.close();
-			Conector.getInstancia().cerrarConn();
+			conn.cerrarConn();
 		} catch (SQLException | ApplicationException e) { e.printStackTrace();}
 	}
 
-	public boolean altaAnestesia(Anestesia a){
+	public boolean altaAnestesia(Anestesia a) throws ApplicationException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "INSERT INTO anestesias (idAnestesia, fecPrestacion, fecARA, fecRendicion, fecCarga, afiliado,"
@@ -29,7 +31,7 @@ public class DataAnestesia {
 				+ "idSanatorio, idOS, idTpoAnestesia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
 				+ "?, ?, ?)";
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = conn.abrirConn().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, a.getIdAnestesia());
 			stmt.setTimestamp(2, a.getFecPrestacion());
 			stmt.setDate(3, a.getFecARA());
@@ -55,36 +57,36 @@ public class DataAnestesia {
 				a.setIdAnestesia(rs.getInt(1));
 			}
 			return true;
-		} catch (SQLException | ApplicationException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, rs);}
 	}
 	
-	public boolean bajaAnestesia(Anestesia a){
+	public boolean bajaAnestesia(Anestesia a) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "DELETE FROM anestesias WHERE idAnestesia = ?";
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, a.getIdAnestesia());
 			stmt.execute();
 			return true;
 		} 
-		catch (SQLException | ApplicationException e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 			return false;}
 		finally{ cerrar(stmt, null);}
 	}
 	
-	public boolean modificaAnestesia(Anestesia a){
+	public boolean modificaAnestesia(Anestesia a) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "UPDATE anestesias SET ( fecPrestacion = ?, fecARA = ?, fecRendicion = ?, "
 				+ "fecCarga = ?, afiliado = ?, nroAfiliado = ?, nocturno = ?, feriado = ?, fds = ?, "
 				+ "nroTalon = ?, nroVias = ?, edad = ?, usuario = ?, idMedico = ?, idAnestesia = ?,"
 				+ "idSanatorio = ?, idOS = ?, idTpoAnestesia = ?) WHERE idAnestesia = ?)";
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setTimestamp(1, a.getFecPrestacion());
 			stmt.setDate(2, a.getFecARA());
 			stmt.setDate(3, a.getFecRendicion());
@@ -107,20 +109,20 @@ public class DataAnestesia {
 			stmt.execute();
 		
 			return true;
-		} catch (SQLException | ApplicationException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, null);}
 	}
 	
-	public Anestesia consultaAnestesia(Anestesia a){
+	public Anestesia consultaAnestesia(Anestesia a) throws ApplicationException{
 		Anestesia rta = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM anestesias WHERE idAnestsia = ?";
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			rs = stmt.executeQuery();
 			if(rs != null && rs.next()){
@@ -146,13 +148,13 @@ public class DataAnestesia {
 				rta.setIdTpoAnestesia(rs.getInt(19));
 			}
 		}
-		catch (SQLException | ApplicationException e) { e.printStackTrace();}
+		catch (SQLException e) { e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return rta;
 	}
 	
 	/* SE LISTAN LAS ANESTESIAS HECHAS EN UN SANATORIO DENTRO DE UNA FECHA O EL HISTORICO*/
-	public ArrayList<Anestesia> listarAnestesias(Date fi, Date ff, int id){
+	public ArrayList<Anestesia> listarAnestesias(Date fi, Date ff, int id) throws ApplicationException{
 		ArrayList<Anestesia> listado = new ArrayList<>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -168,7 +170,7 @@ public class DataAnestesia {
 		}
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			if(fi != null && ff != null){
 				stmt.setDate(1, fi);
@@ -203,13 +205,13 @@ public class DataAnestesia {
 				listado.add(rta);
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return listado;
 	}
 	
 	/* SE LISTAN LAS ANESTESIAS ENTREGADAS AL ARA DE UN SANATORIO DENTRO DE UNA FECHA O EL HISTORICO*/
-	public ArrayList<Anestesia> listarARA(Date fi, Date ff, int id){
+	public ArrayList<Anestesia> listarARA(Date fi, Date ff, int id) throws ApplicationException{
 		ArrayList<Anestesia> listado = new ArrayList<>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -225,7 +227,7 @@ public class DataAnestesia {
 		}
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			if(fi != null && ff != null){
 				stmt.setDate(1, fi);
@@ -260,13 +262,13 @@ public class DataAnestesia {
 				listado.add(rta);
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return listado;
 	}
 	
 	/* SE LISTAN LAS ANESTESIAS RENDIDAS DE UN SANATORIO DENTRO DE UNA FECHA O EL HISTORICO*/
-	public ArrayList<Anestesia> listarRendidas(Date fi, Date ff, int id){
+	public ArrayList<Anestesia> listarRendidas(Date fi, Date ff, int id) throws ApplicationException{
 		ArrayList<Anestesia> listado = new ArrayList<>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -282,7 +284,7 @@ public class DataAnestesia {
 		}
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			if(fi != null && ff != null){
 				stmt.setDate(1, fi);
@@ -317,13 +319,13 @@ public class DataAnestesia {
 				listado.add(rta);
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return listado;
 	}
 	
 	/* SE LISTAN LAS ANESTESIAS CARGADAS DE UN USUARIO PARA UN SANATORIO DENTRO DE UNA FECHA O EL HISTORICO*/
-	public ArrayList<Anestesia> listarPorUsuario(Date fi, Date ff, int id, String u){
+	public ArrayList<Anestesia> listarPorUsuario(Date fi, Date ff, int id, String u) throws ApplicationException{
 		ArrayList<Anestesia> listado = new ArrayList<>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -340,7 +342,7 @@ public class DataAnestesia {
 		}
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			if(fi != null && ff != null){
 				stmt.setDate(1, fi);
@@ -377,13 +379,13 @@ public class DataAnestesia {
 				listado.add(rta);
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return listado;
 	}
 	
 	/* SE LISTAN LAS ANESTESIAS HECHAS POR UN ANESTESISTAS EN UN SANATORIO DENTRO DE UNA FECHA O EL HISTORICO*/
-	public ArrayList<Anestesia> listarPorAnestesista(Date fi, Date ff, int is, int ia){
+	public ArrayList<Anestesia> listarPorAnestesista(Date fi, Date ff, int is, int ia) throws ApplicationException{
 		ArrayList<Anestesia> listado = new ArrayList<>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -399,7 +401,7 @@ public class DataAnestesia {
 		}
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			if(fi != null && ff != null){
 				stmt.setDate(1, fi);
@@ -436,13 +438,13 @@ public class DataAnestesia {
 				listado.add(rta);
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return listado;
 	}
 	
 	/* SE LISTAN LAS ANESTESIAS POR OBRA SOCIAL HECHAS EN UN SANATORIO DENTRO DE UNA FECHA O EL HISTORICO*/
-	public ArrayList<Anestesia> listarPorOS(Date fi, Date ff, int is, int io){
+	public ArrayList<Anestesia> listarPorOS(Date fi, Date ff, int is, int io) throws ApplicationException{
 		ArrayList<Anestesia> listado = new ArrayList<>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -458,7 +460,7 @@ public class DataAnestesia {
 		}
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			if(fi != null && ff != null){
 				stmt.setDate(1, fi);
@@ -495,13 +497,13 @@ public class DataAnestesia {
 				listado.add(rta);
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return listado;
 	}
 	
 	/* SE LISTAN LAS ANESTESIAS A UN PACIENTE HECHAS EN UN SANATORIO DENTRO DE UNA FECHA O EL HISTORICO*/
-	public ArrayList<Anestesia> listarPaciente(Date fi, Date ff, int id, String n){
+	public ArrayList<Anestesia> listarPaciente(Date fi, Date ff, int id, String n) throws ApplicationException{
 		ArrayList<Anestesia> listado = new ArrayList<>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -519,7 +521,7 @@ public class DataAnestesia {
 			}
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			if(fi != null && ff != null){
 				stmt.setString(1, n);
@@ -557,7 +559,7 @@ public class DataAnestesia {
 				listado.add(rta);
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return listado;
 	}

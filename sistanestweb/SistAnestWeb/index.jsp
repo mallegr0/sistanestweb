@@ -25,16 +25,15 @@
 		<!--FORM DEL LOGIN -->
 		<section class="w3-row-padding w3-padding-64 w3-container ">
 			<div class="w3-content w3-text-deep-purple">
-				<!--<h1>TAREAS A HACER EN EL LOGIN</h1>
+				<h1>TAREAS A HACER EN EL LOGIN</h1>
 				<ol>
-					<li style="background-color: green">hacer formulario de login</li>
-					<li style="background-color: green">hacer servlet de login</li>
-					<li style="background-color: green">hacer pie de pagina con mis datos</li>
+					<li style="color: red">hacer servlet de login</li>
+					<li style="color: red">hacer pie de pagina con mis datos</li>
 				</ol>
 
 			<!-- Formulario-->
 			<div class="w3-quarter w3-container"></div>
-			<form action="LoginUsr" id="LoginUsr" method="post" class="w3-container w3-card-4 w3-light-grey w3-text-deep-purple w3-margin w3-half">
+			<form action="Login" id="Login" method="post" class="w3-container w3-card-4 w3-light-grey w3-text-deep-purple w3-margin w3-half">
 				<div class="w3-row w3-section">
 					<div class="w3-col" style="width: 50px"><i class="w3-xxlarge fa fa-user"></i></div>
 					<div class="w3-rest"><input  class="w3-input w3-border" type="text" name="usuario" placeholder="Usuario"></div>

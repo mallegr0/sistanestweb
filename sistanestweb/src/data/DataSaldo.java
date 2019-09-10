@@ -12,22 +12,24 @@ import util.ApplicationException;
 public class DataSaldo {
 	
 	public DataSaldo() {}
+
+	private Conector conn = new Conector();
 	
 	private void cerrar(PreparedStatement stmt, ResultSet rs){
 		try{
 			if(stmt != null) stmt.close();
 			if(rs != null) rs.close();
-			Conector.getInstancia().cerrarConn();
+			conn.cerrarConn();
 		}
 		catch(SQLException | ApplicationException e){ e.printStackTrace();}
 	}
 
-	public boolean altaSaldo(Saldo s){
+	public boolean altaSaldo(Saldo s) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "INSERT INTO saldos (idAnestesista, mes, año, monto, estado) VALUES"
 				+ "(?, ?, ?, ?, ?)";
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, s.getIdAnestesista());
 			stmt.setInt(2, s.getMes());
 			stmt.setInt(3, s.getAño());
@@ -36,37 +38,37 @@ public class DataSaldo {
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, null);}
 	}
 
-	public boolean bajaSaldo(Saldo s){
+	public boolean bajaSaldo(Saldo s) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "DELETE FROM saldos Where idAnestesista = ? AND mes = ? and AÑO = ?";
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, s.getIdAnestesista());
 			stmt.setInt(2, s.getMes());
 			stmt.setInt(3, s.getAño());
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, null);}
 	}
 	
-	public boolean modificaSaldo(Saldo s){
+	public boolean modificaSaldo(Saldo s) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "UPDATE saldos SET (monto = ?, estado = ?) "
 				+ "WHERE idAnestesista = ? AND mes = ? AND año = ?";
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setFloat(1, s.getMonto());
 			stmt.setString(2, s.getEstado());
 			stmt.setInt(3, s.getIdAnestesista());
@@ -75,20 +77,20 @@ public class DataSaldo {
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, null);}
 	}
 
-	public Saldo consultaSaldo(Saldo s){
+	public Saldo consultaSaldo(Saldo s) throws ApplicationException{
 		Saldo rta = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM saldos WHERE idAnestesia = ? AND mes = ? AND año = ?";
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, s.getIdAnestesista());
 			stmt.setInt(2, s.getMes());
 			stmt.setInt(3, s.getAño());
@@ -103,19 +105,19 @@ public class DataSaldo {
 				rta.setEstado(rs.getString(5));
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, null);}
 		return rta;
 	}
 	
-	public ArrayList<Saldo> listarSaldo(Saldo s){
+	public ArrayList<Saldo> listarSaldo(Saldo s) throws ApplicationException{
 		ArrayList<Saldo> listado = new ArrayList<>();
 		Saldo rta = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM saldos WHERE idAnestesia = ? ORDER BY mes DESC, año DESC";
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, s.getIdAnestesista());
 			
 			rs = stmt.executeQuery();
@@ -129,7 +131,7 @@ public class DataSaldo {
 				listado.add(rta);
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, null);}
 		return listado;
 	}

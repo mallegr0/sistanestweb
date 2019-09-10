@@ -32,7 +32,7 @@ public class CtrlObraSocial {
 		return dos.consultaOS(os);
 	}
 	
-	public ArrayList<ObraSocial> listarOS (){
+	public ArrayList<ObraSocial> listarOS () throws ApplicationException{
 		dos = new DataObraSocial();
 		return dos.listarOS();
 	}

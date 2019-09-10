@@ -10,23 +10,25 @@ import entidades.Sanatorio;
 public class DataSanatorio {
 	
 	public DataSanatorio() {}
+
+	private Conector conn = new Conector();
 	
 	private void cerrar(PreparedStatement stmt, ResultSet rs){
 		try{
 			if(stmt != null) stmt.close();
 			if(rs != null) rs.close();
-			Conector.getInstancia().cerrarConn();
+			conn.cerrarConn();
 		}
 		catch(SQLException | ApplicationException e){e.printStackTrace();}
 	}
 	
-	public boolean altaSanatorio(Sanatorio s){
+	public boolean altaSanatorio(Sanatorio s) throws ApplicationException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "INSERT INTO sanatorios (idSanatorio, razonSocial) VALUES (?, ?)";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = conn.abrirConn().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, s.getIdSanatorio());
 			stmt.setString(2, s.getRazonSocial());
 			stmt.execute();
@@ -36,56 +38,56 @@ public class DataSanatorio {
 			}
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, rs);}
 	}
 	
-	public boolean bajaSanatorio(Sanatorio s){
+	public boolean bajaSanatorio(Sanatorio s) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "DELETE FROM sanatorios WHERE idSanatorio = ?";
 		
 		try {
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, s.getIdSanatorio());
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally { cerrar(stmt, null);}
 	}
 	
-	public boolean modificaSanatorio(Sanatorio s){
+	public boolean modificaSanatorio(Sanatorio s) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "UPDATE sanatorios SET razonSocial = ? WHERE idSanatorio = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setString(1, s.getRazonSocial());
 			stmt.setInt(2, s.getIdSanatorio());
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, null);}
 	}
 	
-	public Sanatorio consultaSanatorio(Sanatorio s){
+	public Sanatorio consultaSanatorio(Sanatorio s) throws ApplicationException{
 		Sanatorio sanatorio = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM sanatorios WHERE idSanatorio = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, s.getIdSanatorio());
 			rs=stmt.executeQuery();
 			
@@ -95,12 +97,12 @@ public class DataSanatorio {
 				sanatorio.setRazonSocial(rs.getString(2));
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace(); }
+		catch(SQLException e){ e.printStackTrace(); }
 		finally{ cerrar(stmt, rs);}
 		return sanatorio;
 	}
 	
-	public ArrayList<Sanatorio> listarSanatorio(){
+	public ArrayList<Sanatorio> listarSanatorio() throws ApplicationException{
 		ArrayList<Sanatorio> listado = new ArrayList<>();
 		Sanatorio s = null;
 		PreparedStatement stmt = null;
@@ -108,7 +110,7 @@ public class DataSanatorio {
 		String sql ="SELECT * FROM sanatorios ORDER BY idSanatorio";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
 			if(rs != null && rs.next()){
@@ -118,7 +120,7 @@ public class DataSanatorio {
 				listado.add(s);
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return listado;
 	}

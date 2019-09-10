@@ -150,7 +150,7 @@ public class CtrlAnestesia {
 	
 	/* ACTUALIZACIONES DE OTRAS TABLAS RELACIONADAS CON LA CLASE*/
 	
-	private boolean cargaProcedimiento(int id, ArrayList<Integer> lp){
+	private boolean cargaProcedimiento(int id, ArrayList<Integer> lp) throws ApplicationException{
 		dpa = new DataProcedimientoAnestesia();
 		for(int i = 0; i <= lp.size(); i++){
 			pa = new ProcedimientoAnestesia(lp.get(i), id);

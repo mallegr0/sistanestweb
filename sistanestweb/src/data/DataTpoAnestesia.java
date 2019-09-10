@@ -10,23 +10,25 @@ import entidades.TipoAnestesia;
 public class DataTpoAnestesia {
 	
 	public DataTpoAnestesia(){};
+
+	private Conector conn = new Conector();
 	
 	private void cerrar(PreparedStatement stmt, ResultSet rs){
 		try{
 			if(stmt != null) stmt.close();
 			if(rs != null) rs.close();
-			Conector.getInstancia().cerrarConn();
+			conn.cerrarConn();
 		}
 		catch(SQLException | ApplicationException e){ e.printStackTrace();}
 	}
 	
-	public boolean altaTpoAnestesia(TipoAnestesia ta){
+	public boolean altaTpoAnestesia(TipoAnestesia ta) throws ApplicationException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "INSERT INTO tpoanestesias (idTipoAnestesia, descTpoAnestesia) VALUES (?,?)";
 		
 		try {
-			stmt=Conector.getInstancia().abrirConn().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt=conn.abrirConn().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			stmt.setInt(1, ta.getIdTpoAnestesia());
 			stmt.setString(2, ta.getDescTpoAnestesia());
@@ -39,25 +41,25 @@ public class DataTpoAnestesia {
 			}
 			return true;
 		}
-		catch(SQLException | ApplicationException e){ 
+		catch(SQLException e){ 
 			e.printStackTrace();
 			return false;
 			}
 		finally { cerrar(stmt, rs); }
 	}
 	
-	public boolean bajaTpoAnestesia(TipoAnestesia ta){
+	public boolean bajaTpoAnestesia(TipoAnestesia ta) throws ApplicationException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "DELETE FROM tpoanestesias WHERE idTpoAnestesia = ?";
 		
 		try {
-			stmt=Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt=conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, ta.getIdTpoAnestesia());
 			stmt.execute();
 			return true;
 		} 
-		catch (SQLException | ApplicationException e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -65,32 +67,32 @@ public class DataTpoAnestesia {
 		
 	}
 
-	public boolean modificaTpoAnestesia(TipoAnestesia ta){
+	public boolean modificaTpoAnestesia(TipoAnestesia ta) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "UPDATE tpoanestesias SET descTpoAnestesia = ? WHERE idTpoAnestesia = ?";
 		
 		try {
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setString(1, ta.getDescTpoAnestesia());
 			stmt.setInt(2, ta.getIdTpoAnestesia());
 			stmt.execute();
 			return true;
 			}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally { cerrar(stmt, null); }
 	}
 
-	public TipoAnestesia consultaTpoAnestesia(TipoAnestesia ta){
+	public TipoAnestesia consultaTpoAnestesia(TipoAnestesia ta) throws ApplicationException{
 		TipoAnestesia res = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM tpoanestesias WHERE idTpoAnestesia = ?";
 		
 		try{
-			stmt= Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt= conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, ta.getIdTpoAnestesia());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()){
@@ -99,12 +101,12 @@ public class DataTpoAnestesia {
 				res.setDescTpoAnestesia(rs.getString(2));
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally { cerrar(stmt, rs); }
 		return res;
 	}
 
-	public ArrayList<TipoAnestesia> listarTpoAnestesia(){
+	public ArrayList<TipoAnestesia> listarTpoAnestesia() throws ApplicationException{
 		ArrayList<TipoAnestesia> listado = new ArrayList<>();
 		TipoAnestesia ta = null;
 		PreparedStatement stmt = null;
@@ -112,7 +114,7 @@ public class DataTpoAnestesia {
 		String sql = "SELECT * FROM tpoanestesias ORDER BY idTpoAnestesia";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			rs = stmt.executeQuery();
 			if(rs != null && rs.next()){
 				ta = new TipoAnestesia();
@@ -121,7 +123,7 @@ public class DataTpoAnestesia {
 				listado.add(ta);
 			}
 		}
-		catch(SQLException | ApplicationException e){e.printStackTrace();}
+		catch(SQLException e){e.printStackTrace();}
 		finally { cerrar(stmt, rs); }
 		return listado;
 	}

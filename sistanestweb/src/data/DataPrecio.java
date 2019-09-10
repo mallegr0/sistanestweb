@@ -12,20 +12,22 @@ public class DataPrecio {
 	
 	public DataPrecio() {}
 	
+	private Conector conn = new Conector();
+	
 	private void cerrar(PreparedStatement stmt, ResultSet rs){
 		try {
 			if(stmt != null) stmt.close();
 			if(rs != null) rs.close();
-			Conector.getInstancia().cerrarConn();
+			conn.cerrarConn();
 		} catch (SQLException | ApplicationException e) { e.printStackTrace();}
 	}
 
-	public boolean altaPrecio(Precio p){
+	public boolean altaPrecio(Precio p) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "INSERT INTO precios (fecha, idSanatorio, valor) SET (?, ?, ?)";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setDate(1, p.getFecha());
 			stmt.setInt(2, p.getIdSanatorio());
 			stmt.setFloat(3, p.getValor());
@@ -33,38 +35,38 @@ public class DataPrecio {
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, null);}
 	}
 
-	public boolean bajaPrecio(Precio p){
+	public boolean bajaPrecio(Precio p) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "DELETE FROM precios WHERE fecha = ? AND idSanatorio = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setDate(1, p.getFecha());
 			stmt.setInt(2, p.getIdSanatorio());
 			
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, null);}
 	}
 	
-	public boolean modificaPrecio(Precio p){
+	public boolean modificaPrecio(Precio p) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "UPDATE precios SET valor = ? WHERE fecha = ? AND idSanatorio = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setFloat(1, p.getValor());
 			stmt.setDate(2, p.getFecha());
 			stmt.setInt(3, p.getIdSanatorio());
@@ -72,21 +74,21 @@ public class DataPrecio {
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, null);}
 	}
 
-	public Precio consultaPrecio(Precio p){
+	public Precio consultaPrecio(Precio p) throws ApplicationException{
 		Precio rta = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM precios WHERE fecha = ? AND idSanatorio = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setDate(1, p.getFecha());
 			stmt.setInt(2, p.getIdSanatorio());
 			
@@ -98,12 +100,12 @@ public class DataPrecio {
 				rta.setValor(rs.getFloat(3));
 			}
 		}
-		catch(SQLException | ApplicationException e){e.printStackTrace();}
+		catch(SQLException e){e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return rta;
 	}
 	
-	public ArrayList<Precio> ListarPrecio(Precio p){
+	public ArrayList<Precio> ListarPrecio(Precio p) throws ApplicationException{
 		ArrayList<Precio> listado = new ArrayList<>();
 		Precio rta = null;
 		PreparedStatement stmt = null;
@@ -111,7 +113,7 @@ public class DataPrecio {
 		String sql = "SELECT * FROM precios WHERE idSanatorio = ? ORDER BY fecha DESC";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, p.getIdSanatorio());
 			
 			rs = stmt.executeQuery();
@@ -123,19 +125,19 @@ public class DataPrecio {
 				listado.add(rta);
 			}
 		}
-		catch(SQLException | ApplicationException e){e.printStackTrace();}
+		catch(SQLException e){e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return listado;
 	}
 	
-	public Precio ultimoPrecioSanatorio (Integer id){
+	public Precio ultimoPrecioSanatorio (Integer id) throws ApplicationException{
 		Precio rta = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM precios WHERE idSanatorio = ? ORDER BY fecha DESC LIMIT 1";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, id);
 			
 			rs = stmt.executeQuery();
@@ -146,7 +148,7 @@ public class DataPrecio {
 				rta.setValor(rs.getFloat(3));
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{cerrar(stmt, rs);}
 		return rta;
 		}

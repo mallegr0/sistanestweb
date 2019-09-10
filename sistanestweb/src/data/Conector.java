@@ -4,51 +4,47 @@ import java.sql.*;
 import util.ApplicationException;
 
 
-
 public class Conector {
-	private String dbDriver="com.mysql.jdbc.Driver";
-	private String user="root";
-	private String pass="root";
-	private String server="jdbc:mysql://localhost/sistanestweb/";
-	private Connection conn;
-	private int cantConn=0;
+	private static String servidor = "jdbc:mysql://localhost/sistanestweb";
+	private static String user = "root";
+	private static String pass = "root";
+	private static String driver = "com.mysql.jdbc.Driver";
+	private static Connection conexion;
+	private int cantConn = 0;
 	
-	private Conector() throws ApplicationException{
-		try {
-			Class.forName(dbDriver);
-			conn = DriverManager.getConnection(server, user, pass);
-		} catch (ClassNotFoundException | SQLException e) {
-			throw new ApplicationException("Error en el JDBC", e);
+	public Conector() {
+		try{
+			Class.forName(driver);
+			conexion = DriverManager.getConnection(servidor, user, pass);
+			System.out.println("Conexion realizada con exito!!");
+			System.out.println("");
 		}
-	}
-	
-	private static Conector instancia;
-	
-	public static Conector getInstancia() throws ApplicationException{
-		if(instancia==null){
-			instancia = new Conector();
+		catch(ClassNotFoundException | SQLException e){
+			System.out.println("Conexion fallida !!");
+			System.out.println("--------");
+			e.printStackTrace();
 		}
-		return instancia;
 	}
 
 	public Connection abrirConn(){
 		try {
-			if(conn== null | conn.isClosed()){
+			if( conexion == null || conexion.isClosed()){
 				cantConn++;
 			}
-		} catch (Exception e) {
-			new ApplicationException("Error al Conectar a la BBDD",e);
+		} catch (SQLException e) {
+			new ApplicationException("Error al conectar a la BBDD",e);
 		}
-		return conn; 
+		return conexion;
 	}
-
-	public void cerrarConn() throws ApplicationException{
+	
+	public void cerrarConn() throws ApplicationException {
 		try {
 			cantConn--;
-			if(cantConn==0){ conn.close();} 
-		} catch (Exception e) {
-			throw new ApplicationException("Error al desconectar la BBDD",e);
+			if(cantConn == 0) conexion.close();
+		} catch (SQLException e) {
+			throw new ApplicationException("Error al cerrar la conexión",e);
 		}
 		
 	}
 }
+

@@ -13,15 +13,17 @@ public class DataAnestesista {
 	
 	public DataAnestesista() {}
 	
+	private Conector conn = new Conector();
+	
 	private void cerrar(PreparedStatement stmt, ResultSet rs){
 		try {
 			if(stmt != null) stmt.close();
 			if(rs != null) rs.close();
-			Conector.getInstancia().cerrarConn();
+			conn.cerrarConn();
 		} catch (SQLException | ApplicationException e) { e.printStackTrace();}
 	}
 
-	public boolean altaAnestesista(Anestesista a){
+	public boolean altaAnestesista(Anestesista a) throws ApplicationException{
 		Anestesista r = new Anestesista();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -29,7 +31,7 @@ public class DataAnestesista {
 				+ "grupo, usuario) SET (?, ?, ?, ?, ?, ?)";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = conn.abrirConn().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, a.getIdAnestesista());
 			stmt.setString(2, a.getNombreAnestesista());
 			stmt.setString(3, a.getApellidoAnestesista());
@@ -44,7 +46,7 @@ public class DataAnestesista {
 			}
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
@@ -52,30 +54,30 @@ public class DataAnestesista {
 		
 	}
 	
-	public boolean bajaAnestesista(Anestesista a){
+	public boolean bajaAnestesista(Anestesista a) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "DELETE FROM anestesistas WHERE idAnestesista = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, a.getIdAnestesista());
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, null);}
 	}
 	
-	public boolean modificaAnestesista(Anestesista a){
+	public boolean modificaAnestesista(Anestesista a) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "UPDATE anestesistas SET nombreAnestesista = ?, apellidoAnestesistas = ?,"
 				+ "matricula = ?, grupo = ?, usuario = ? WHERE idAnestesista = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setString(1, a.getNombreAnestesista());
 			stmt.setString(2, a.getApellidoAnestesista());
 			stmt.setInt(3, a.getMatricula());
@@ -86,21 +88,21 @@ public class DataAnestesista {
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, null);}
 	}
 	
-	public Anestesista consultaAnestesista(Anestesista a){
+	public Anestesista consultaAnestesista(Anestesista a) throws ApplicationException{
 		Anestesista rta = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM anestesistas WHERE idAnestesista = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, a.getIdAnestesista());
 			rs = stmt.executeQuery();
 			if(rs != null && rs.next()){
@@ -113,12 +115,12 @@ public class DataAnestesista {
 				rta.setUsuario(rs.getString(6));
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return rta;
 	}
 	
-	public ArrayList<Anestesista> listarAnestesista(){
+	public ArrayList<Anestesista> listarAnestesista() throws ApplicationException{
 		ArrayList<Anestesista> listado = new ArrayList<>();
 		Anestesista rta = null;
 		PreparedStatement stmt = null;
@@ -126,7 +128,7 @@ public class DataAnestesista {
 		String sql = "SELECT * FROM anestesistas ORDER BY idAnestesista";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			rs = stmt.executeQuery();
 			if(rs != null && rs.next()){
 				rta = new Anestesista();
@@ -139,19 +141,19 @@ public class DataAnestesista {
 				listado.add(rta);
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return listado;
 	}
 	
-	public Anestesista buscaNombre(Anestesista a){
+	public Anestesista buscaNombre(Anestesista a) throws ApplicationException{
 		Anestesista rta = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM anestesistas WHERE usuario = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setString(1, a.getUsuario());
 			rs = stmt.executeQuery();
 			if(rs != null && rs.next()){
@@ -164,7 +166,7 @@ public class DataAnestesista {
 				rta.setUsuario(rs.getString(6));
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return rta;
 	}

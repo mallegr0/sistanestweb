@@ -9,22 +9,24 @@ public class DataMedico {
 	
 	public DataMedico(){};
 	
+	private Conector conn = new Conector();
+	
 	private void cerrar(PreparedStatement stmt, ResultSet rs){
 		try {
 			if(stmt != null) stmt.close();
 			if(rs != null) rs.close();
-			Conector.getInstancia().cerrarConn();
+			conn.cerrarConn();
 		} catch (SQLException | ApplicationException e) { e.printStackTrace();}
 	}
 	
-	public boolean altaMedico(Medico m){
+	public boolean altaMedico(Medico m) throws ApplicationException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "INSERT INTO medicos (idMedico, nombreMedico, apellidoMedico, idSanatorio)"
 				+ "VALUES (?,?,?,?)";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = conn.abrirConn().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, m.getIdMedico());
 			stmt.setString(2, m.getNombreMedico());
 			stmt.setString(3, m.getApellidoMedico());
@@ -36,37 +38,37 @@ public class DataMedico {
 			}
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally { cerrar(stmt, rs);}
 	}
 	
-	public boolean bajaMedico(Medico m){
+	public boolean bajaMedico(Medico m) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "DELETE FROM medicos WHERE idMedico = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, m.getIdMedico());
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally { cerrar(stmt, null);}
 	}
 	
-	public boolean modificaMedico(Medico m){
+	public boolean modificaMedico(Medico m) throws ApplicationException{
 		PreparedStatement stmt = null;
 		String sql = "UPDATE medicos SET nombreMedico = ?, apellidoMedico = ?, idSanatorio = ?"
 				+ "WHERE idMedico = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setString(1, m.getNombreMedico());
 			stmt.setString(2, m.getApellidoMedico());
 			stmt.setInt(3, m.getIdSanatorio());
@@ -75,21 +77,21 @@ public class DataMedico {
 			stmt.execute();
 			return true;
 		}
-		catch(SQLException | ApplicationException e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return false;
 		}
 		finally{ cerrar(stmt, null);}
 	}
 	
-	public Medico consultaMedico(Medico m){
+	public Medico consultaMedico(Medico m) throws ApplicationException{
 		Medico rta = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM medicos WHERE idMedico = ?";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			stmt.setInt(1, m.getIdMedico());
 			rs = stmt.executeQuery();
 			
@@ -101,12 +103,12 @@ public class DataMedico {
 				rta.setIdSanatorio(rs.getInt(4));
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);} 
 		return rta;
 	}
 	
-	public ArrayList<Medico> listarMedico(){
+	public ArrayList<Medico> listarMedico() throws ApplicationException{
 		ArrayList<Medico> listado = new ArrayList<>();
 		Medico m = null;
 		PreparedStatement stmt = null;
@@ -114,7 +116,7 @@ public class DataMedico {
 		String sql = "SELECT * FROM medicos ORDER BY idMedico";
 		
 		try{
-			stmt = Conector.getInstancia().abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
 			if(rs != null && rs.next()){
@@ -126,7 +128,7 @@ public class DataMedico {
 				listado.add(m);
 			}
 		}
-		catch(SQLException | ApplicationException e){ e.printStackTrace();}
+		catch(SQLException e){ e.printStackTrace();}
 		finally{ cerrar(stmt, rs);}
 		return listado;
 	}
