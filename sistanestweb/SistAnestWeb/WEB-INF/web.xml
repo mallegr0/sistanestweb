@@ -9,13 +9,4 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description>Servlet que maneja el Login del usuario</description>
-    <servlet-name>Login</servlet-name>
-    <servlet-class>com.sistanestweb.src.servlet.Login</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>Login</servlet-name>
-  	<url-pattern>"/exito"</url-pattern>
-  </servlet-mapping>
 </web-app>

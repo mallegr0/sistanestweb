@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>mensaje de login	</title>
+<title>gestor</title>
 </head>
 <body>
-
-<%= request.getAttribute("rta") %>
+<h1>gestor</h1>
 </body>
 </html>
