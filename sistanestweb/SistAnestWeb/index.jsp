@@ -1,20 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>SISTANEST Web</title>
-		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="styleshhet" href="estilos/w3.css">		
-		<style type="text/css">
-			body, h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
-			.w3-bar,h1,button {font-family: "Monserrat", sans-serif}
-		</style>
+		<jsp:include page="/views/meta.jsp"/>
 	</head>
 	<body>
 		<!--CABECERA DE PAGINA -->
@@ -25,15 +16,8 @@
 		<!--FORM DEL LOGIN -->
 		<section class="w3-row-padding w3-padding-64 w3-container ">
 			<div class="w3-content w3-text-deep-purple">
-				<h1>TAREAS A HACER EN EL LOGIN</h1>
-				<ol>
-					<li style="color: red">hacer servlet de login</li>
-					<li style="color: red">hacer pie de pagina con mis datos</li>
-				</ol>
-			<h3 style="background-color: yellow; color: white">ya esta el login con la conexion a la bbdd. 
-hacer las paginas de Anestesista, gestor y Administrador.
-testear las consultas sql con el administrador.
-mejorar el pie de pagina que quede estatico cuando se achica.</h3>
+				<h1>HAY VERSIONADO, REVISAR Y COMPLETAR</h1>
+				
 			<!-- Formulario-->
 			<div class="w3-quarter w3-container"></div>
 			<form action="Login" id="Login" method="post" class="w3-container w3-card-4 w3-light-grey w3-text-deep-purple w3-margin w3-half">
@@ -52,6 +36,6 @@ mejorar el pie de pagina que quede estatico cuando se achica.</h3>
 		</section>
 
 		<!--PIE DE PAGINA -->
-		<jsp:include page="/views/footer.jsp"></jsp:include>
+		<jsp:include page="/views/footer.jsp"/>
 	</body>
 </html>

@@ -1,0 +1,57 @@
+
+------- VERSIONADO Y MEJORAS -------
+
+**********
+   V1.0			27/09/2019
+**********
+
+JSP
+- index.jsp
+	- manejo de errores de logeo.
+- administrador.jsp
+	- hacer menu con todas las opciones.
+	- hacer spa con el manejo de las paginas
+	- testear funcionalidad
+- gestor.jsp
+	- hacer menu con todas las opciones.
+	- hacer spa con el manejo de las paginas
+	- testear funcionalidad
+- anestesista.jsp
+	- hacer menu con todas las opciones.
+	- hacer spa con el manejo de las paginas
+	- testear funcionalidad
+- footer.jsp
+	- agregar legajo al pie de pagina.
+	- mejorar el responsive
+- agregar jsp con scripts   -- Hecho y funcionando el 29/09/2019
+- agregar jsp con meta data -- Hecho y funcionando el 29/09/2019 
+
+
+SERVLET
+- login.class
+	- derivar a cada servlet para manejar cada rol
+- admin.class
+	- realizar servlet de admin
+- gestor.class
+	- realizar servlet de gestor
+- anestesista.class
+	- realizar servlet de anestesista
+
+
+FUNCIONALIDAD
+- Anular que se pueda ir adelante y atras con el navegador, ver estados de sesion.
+
+**********
+   V1.5
+**********
+
+JSP
+
+
+
+SERVLET
+
+
+FUNCIONALIDAD
+- Realizar script para la creación de la BBDD con las tablas si es que no existen.
+- Hacer tabla de menu con sus respectivas consultas y manejo.

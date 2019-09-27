@@ -13,7 +13,6 @@ public class CtrlUsuario {
 	
 	private DataUsuario du = null;
 
-	
 	public boolean altaUsuario(Usuario u) throws ApplicationException{
 		du = new DataUsuario();
 		return du.altaUsuario(u);
@@ -52,5 +51,25 @@ public class CtrlUsuario {
 	public boolean cambioContraseña(Usuario u) throws ApplicationException{
 		du = new DataUsuario();
 		return du.cambioContraseña(u);
+	}
+	
+	public Integer validaUsuario(Usuario usr) {
+		du = new DataUsuario();
+		Usuario usuario = new Usuario();
+		int rta = 0;
+		try {
+			usuario = du.consultaUsuario(usr);
+			if(usuario != null) 
+			{
+				if(usuario.getUser().equals(usr.getUser()) && usuario.getPassword().equals(usr.getPassword())) { rta = 1;	}
+				else {rta = 2;}
+			}
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+		return rta;
+		
 	}
 }
