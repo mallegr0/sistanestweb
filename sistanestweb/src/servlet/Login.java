@@ -59,13 +59,13 @@ public class Login extends HttpServlet {
 					if(user.getIdRol() != 0){
 						switch (user.getIdRol()) {
 						case 1:
-							url = "/administrador.jsp";
+							url = "/views/administrador.jsp";
 							break;
 						case 2:
-							url = "/gestor.jsp";
+							url = "/views/gestor.jsp";
 							break; 
 						case 3:
-							url = "/anestesista.jsp";
+							url = "/views/anestesista.jsp";
 							break;
 						default:
 							break;
