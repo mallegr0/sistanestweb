@@ -16,11 +16,10 @@ public class Conector {
 		try{
 			Class.forName(driver);
 			conexion = DriverManager.getConnection(servidor, user, pass);
-			System.out.println("Conexion realizada con exito!!");
-			System.out.println("");
 		}
 		catch(ClassNotFoundException | SQLException e){
-			System.out.println("Conexion fallida !!");
+			System.out.println("--------");
+			System.out.println("FALLO LA CONEXION !!");
 			System.out.println("--------");
 			e.printStackTrace();
 		}
