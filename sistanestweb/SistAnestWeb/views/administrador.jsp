@@ -26,7 +26,7 @@
 			<div class="w3-bar w3-deep-purple w3-left-align">
 		  		<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-teal w3-deep-purple" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
 		  		<div class="w3-dropdown-hover w3-hide-small">
-		    		<button class="w3-button w3-hover-teal w3-hover-text-white">ALTA <i class="fa fa-caret-down"></i></button>     
+		    		<button class="w3-button w3-hover-teal w3-hover-text-white">ALTAS <i class="fa fa-caret-down"></i></button>     
 			    	<div class="w3-dropdown-content w3-card-4 w3-bar-block">
 				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Link</a>
 				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Link</a>
@@ -34,7 +34,7 @@
 			    	</div>
 				</div>
 				<div class="w3-dropdown-hover w3-hide-small">
-		    		<button class="w3-button w3-hover-teal w3-hover-text-white">BAJA <i class="fa fa-caret-down"></i></button>     
+		    		<button class="w3-button w3-hover-teal w3-hover-text-white">BAJAS <i class="fa fa-caret-down"></i></button>     
 			    	<div class="w3-dropdown-content w3-card-4 w3-bar-block">
 				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Link</a>
 				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Link</a>
@@ -42,7 +42,7 @@
 			    	</div>
 				</div>
 				<div class="w3-dropdown-hover w3-hide-small">
-		    		<button class="w3-button w3-hover-teal w3-hover-text-white">MODIFICAR <i class="fa fa-caret-down"></i></button> 
+		    		<button class="w3-button w3-hover-teal w3-hover-text-white">MODIFICACIONES <i class="fa fa-caret-down"></i></button> 
 			    	<div class="w3-dropdown-content w3-card-4 w3-bar-block">
 				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Link</a>
 				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Link</a>
@@ -50,7 +50,7 @@
 			    	</div>
 				</div>
 				<div class="w3-dropdown-hover w3-hide-small">
-		    		<button class="w3-button w3-hover-teal w3-hover-text-white">CONSULTAR <i class="fa fa-caret-down"></i></button> 
+		    		<button class="w3-button w3-hover-teal w3-hover-text-white">CONSULTAS <i class="fa fa-caret-down"></i></button> 
 			    	<div class="w3-dropdown-content w3-card-4 w3-bar-block">
 				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Link</a>
 				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Link</a>
@@ -58,7 +58,7 @@
 			    	</div>
 				</div>
 				<div class="w3-dropdown-hover w3-hide-small">
-		    		<button class="w3-button w3-hover-teal w3-hover-text-white">LISTAR <i class="fa fa-caret-down"></i></button>    
+		    		<button class="w3-button w3-hover-teal w3-hover-text-white">LISTADOS <i class="fa fa-caret-down"></i></button>    
 			    	<div class="w3-dropdown-content w3-card-4 w3-bar-block">
 				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Link</a>
 				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Link</a>

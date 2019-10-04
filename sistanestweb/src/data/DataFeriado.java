@@ -94,7 +94,7 @@ public class DataFeriado {
 		
 		try{
 			stmt = conn.abrirConn().prepareStatement(sql);
-			stmt.setInt(2, f.getIdFeriado());
+			stmt.setInt(1, f.getIdFeriado());
 			
 			rs = stmt.executeQuery();
 			if(rs != null && rs.next()){
