@@ -6,31 +6,22 @@ public class Menu implements Serializable {
 	
 	private static final long serialversionUID = 1L;
 	
-	private int idProg, idRol;
+	private int idMenu;
 	private String descMenu;
 	
 	public Menu() {}
 	
-	public Menu(int ip, int ir, String dm){
-		this.idProg = ip;
-		this.idRol = ir;
+	public Menu(int ip, int im, String dm){
+		this.idMenu = im;
 		this.descMenu = dm;
 	}
 
-	public int getIdProg() {
-		return idProg;
+	public int getIdMenu() {
+		return idMenu;
 	}
 
-	public void setIdProg(int idProg) {
-		this.idProg = idProg;
-	}
-
-	public int getIdRol() {
-		return idRol;
-	}
-
-	public void setIdRol(int idRol) {
-		this.idRol = idRol;
+	public void setIdMenu(int idMenu) {
+		this.idMenu = idMenu;
 	}
 
 	public String getDescMenu() {

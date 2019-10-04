@@ -24,16 +24,21 @@ public class DataMenu {
 	
 	public boolean altaMenu(Menu m) throws ApplicationException{
 		PreparedStatement stmt = null;
-		String sql ="INSERT INTO menus (idProg, idRol, descMenu) VALUES (?,?,?)";
+		ResultSet rs = null;
+		String sql ="INSERT INTO menus (idMenu, descMenu) VALUES (?,?)";
 		
 		try {
-			stmt = conn.abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			
-			stmt.setInt(1, m.getIdProg());
-			stmt.setInt(2, m.getIdRol());
-			stmt.setString(3, m.getDescMenu());
+			stmt.setInt(1, m.getIdMenu());
+			stmt.setString(2, m.getDescMenu());
 			
 			stmt.execute();
+			
+			rs=stmt.getGeneratedKeys();
+			if(rs != null && rs.next()) {
+				m.setIdMenu(rs.getInt(1));
+			}
 			return true;
 		} 
 		catch(SQLException e){
@@ -47,13 +52,12 @@ public class DataMenu {
 
 	public boolean bajaMenu(Menu m) throws ApplicationException{
 		PreparedStatement stmt = null;
-		String sql ="DELETE FROM Menus WHERE idProg = ? AND idRol = ?";
+		String sql ="DELETE FROM Menus WHERE idMenu = ?";
 		
 		try {
 			stmt = conn.abrirConn().prepareStatement(sql);
 			
-			stmt.setInt(1, m.getIdProg());
-			stmt.setInt(2, m.getIdRol());
+			stmt.setInt(1, m.getIdMenu());
 			
 			stmt.execute();
 			return true;
@@ -69,13 +73,13 @@ public class DataMenu {
 	
 	public boolean modificaMenu(Menu m) throws ApplicationException{
 		PreparedStatement stmt = null;
-		String sql ="UPDATE menus SET idProg = ? WHERE idRol = ?";
+		String sql ="UPDATE menus SET descMenu = ? WHERE idMenu = ?";
 		
 		try {
 			stmt = conn.abrirConn().prepareStatement(sql);
 			
-			stmt.setInt(1, m.getIdProg());
-			stmt.setInt(2, m.getIdRol());
+			stmt.setString(1, m.getDescMenu());
+			stmt.setInt(2, m.getIdMenu());
 			
 			stmt.execute();
 			return true;
@@ -93,20 +97,19 @@ public class DataMenu {
 		Menu rta = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql ="SELECT * FROM Menu WHERE idProg = ?";
+		String sql ="SELECT * FROM Menu WHERE idMenu = ?";
 		
 		try {
 			stmt = conn.abrirConn().prepareStatement(sql);
 			
-			stmt.setInt(1, m.getIdProg());
+			stmt.setInt(1, m.getIdMenu());
 			
 			rs = stmt.executeQuery();
 			
 			if(rs != null && rs.next()){
 				rta = new Menu();
-				rta.setIdProg(rs.getInt(1));
-				rta.setIdRol(rs.getInt(2));
-				rta.setDescMenu(rs.getString(3));
+				rta.setIdMenu(rs.getInt(1));
+				rta.setDescMenu(rs.getString(2));
 			}
 			return rta;
 		} 
@@ -124,7 +127,7 @@ public class DataMenu {
 		Menu m = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql ="SELECT * FROM menu ORDER BY idRol, idProg";
+		String sql ="SELECT * FROM menu ORDER BY idMenu";
 		
 		try {
 			stmt = conn.abrirConn().prepareStatement(sql);
@@ -133,9 +136,8 @@ public class DataMenu {
 			
 			if(rs != null && rs.next()){
 				m = new Menu();
-				m.setIdProg(rs.getInt(1));
-				m.setIdRol(rs.getInt(2));
-				m.setDescMenu(rs.getString(3));
+				m.setIdMenu(rs.getInt(1));
+				m.setDescMenu(rs.getString(2));
 				lista.add(m);
 			}
 			return lista;

@@ -24,13 +24,17 @@ public class DataRol {
 	public boolean altaRol(Rol r) throws ApplicationException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "INSERT INTO roles (idRol, descRol) VALUES (?, ?)";
+		String sql = "INSERT INTO roles (idRol, descRol, idMenu) VALUES (?, ?, ?)";
 		
 		try{
 			stmt = conn.abrirConn().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			
 			stmt.setInt(1, r.getIdRol());
 			stmt.setString(2, r.getDescRol());
+			stmt.setInt(3, r.getIdMenu());
+			
 			stmt.execute();
+			
 			rs = stmt.getGeneratedKeys();
 			if(rs != null && rs.next()){
 				r.setIdRol(rs.getInt(1));
@@ -65,12 +69,14 @@ public class DataRol {
 	
 	public boolean modificaRol(Rol r) throws ApplicationException{
 		PreparedStatement stmt = null;
-		String sql = "UPDATE roles SET descRol = ? WHERE idRol = ?";
+		String sql = "UPDATE roles SET descRol = ? , idMenu = ? WHERE idRol = ?";
 		
 		try{
 			stmt = conn.abrirConn().prepareStatement(sql);
+			
 			stmt.setString(1, r.getDescRol());
-			stmt.setInt(2, r.getIdRol());
+			stmt.setInt(2, r.getIdMenu());
+			stmt.setInt(3, r.getIdRol());
 			stmt.execute();
 			return true;
 		}
@@ -95,6 +101,7 @@ public class DataRol {
 				rol = new Rol();
 				rol.setIdRol(rs.getInt(1));
 				rol.setDescRol(rs.getString(2));
+				rol.setIdMenu(rs.getInt(3));
 			}
 		}
 		catch(SQLException e){ e.printStackTrace();}
@@ -116,6 +123,7 @@ public class DataRol {
 				rol = new Rol();
 				rol.setIdRol(rs.getInt(1));
 				rol.setDescRol(rs.getString(2));
+				rol.setIdMenu(rs.getInt(3));
 				listado.add(rol);
 			}
 		}
