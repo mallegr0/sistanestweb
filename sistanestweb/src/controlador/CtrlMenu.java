@@ -1,16 +1,16 @@
 package controlador;
 
 import java.util.ArrayList;
-
-import data.DataMenu;
 import entidades.Menu;
+import data.DataMenu;
 import util.ApplicationException;
+
 
 public class CtrlMenu {
 	
-	public CtrlMenu(){}
+	public CtrlMenu() {}
 	
-	private DataMenu dm = null;
+	DataMenu dm = null;
 	
 	public boolean altaMenu(Menu m) throws ApplicationException{
 		dm = new DataMenu();
@@ -22,17 +22,17 @@ public class CtrlMenu {
 		return dm.bajaMenu(m);
 	}
 	
-	public boolean modificaMenu (Menu m) throws ApplicationException{
+	public boolean modificaMenu(Menu m) throws ApplicationException{
 		dm = new DataMenu();
 		return dm.modificaMenu(m);
 	}
 	
-	public Menu consultaMenu (Menu m) throws ApplicationException{
+	public Menu consultaMenu(Menu m) throws ApplicationException{
 		dm = new DataMenu();
 		return dm.consultaMenu(m);
 	}
 	
-	public ArrayList<Menu> listarMenu () throws ApplicationException{
+	public ArrayList<Menu> ListarMenu() throws ApplicationException{
 		dm = new DataMenu();
 		return dm.listarMenu();
 	}

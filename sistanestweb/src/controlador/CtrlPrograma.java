@@ -1,7 +1,6 @@
 package controlador;
 
 import java.util.ArrayList;
-
 import data.DataPrograma;
 import entidades.Programa;
 import util.ApplicationException;

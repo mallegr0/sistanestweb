@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Programa implements Serializable {
 	
-	private static final long serialversionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private int idProg; 
 	private String modulo, nombre; //Modulo hace referencia a ALTA, BAJA, etc.. Y nombre hacer referencia al metodo.
 	

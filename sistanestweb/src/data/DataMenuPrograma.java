@@ -28,7 +28,7 @@ public class DataMenuPrograma {
 		String sql = "INSER INTO menus_programas (idMenu, idProg) VALUES (?, ?)";
 		
 		try {
-			conn.abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			stmt.setInt(1, mp.getIdMenu());
 			stmt.setInt(2, mp.getIdProg());
@@ -50,7 +50,7 @@ public class DataMenuPrograma {
 		String sql = "DELETE FROM menus_programas WHERE idMenu = ? AND idProg = ?";
 		
 		try {
-			conn.abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			stmt.setInt(1, mp.getIdMenu());
 			stmt.setInt(2, mp.getIdProg());
@@ -72,7 +72,7 @@ public class DataMenuPrograma {
 		String sql = "UPDATE FROM menus_programas SET idProg = ? WHERE idMenu = ?";
 		
 		try {
-			conn.abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			stmt.setInt(1, mp.getIdProg());
 			stmt.setInt(2, mp.getIdMenu());
@@ -96,7 +96,7 @@ public class DataMenuPrograma {
 		String sql = "SELECT * FROM menus_programas WEHRE idMenu = ? AND idProg = ?";
 		
 		try {
-			conn.abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			stmt.setInt(1, mp.getIdMenu());
 			stmt.setInt(2, mp.getIdProg());
@@ -126,7 +126,7 @@ public class DataMenuPrograma {
 		String sql = "SELECT * FROM menus_programas WHERE idMenu = ? ORDER BY idProg";
 		
 		try {
-			conn.abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			stmt.setInt(1, im);
 			
@@ -157,7 +157,7 @@ public class DataMenuPrograma {
 		String sql = "SELECT * FROM menus_programas WHERE idPrograma = ? ORDER BY idMenu";
 		
 		try {
-			conn.abrirConn().prepareStatement(sql);
+			stmt = conn.abrirConn().prepareStatement(sql);
 			
 			stmt.setInt(1, ip);
 			
