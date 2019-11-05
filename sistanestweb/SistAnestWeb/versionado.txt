@@ -21,10 +21,10 @@ JSP
 	- hacer spa con el manejo de las paginas
 	- testear funcionalidad
 - footer.jsp
-	- agregar legajo al pie de pagina.
+	- agregar legajo al pie de pagina. ** Hecho
 	- mejorar el responsive
-- agregar jsp con scripts   -- Hecho y funcionando el 29/09/2019
-- agregar jsp con meta data -- Hecho y funcionando el 29/09/2019 
+- agregar jsp con scripts   ** Hecho y funcionando el 29/09/2019
+- agregar jsp con meta data ** Hecho y funcionando el 29/09/2019 
 
 
 SERVLET
@@ -53,5 +53,5 @@ SERVLET
 
 
 FUNCIONALIDAD
-- Realizar script para la creación de la BBDD con las tablas si es que no existen.
+- Realizar script para la creación de la BBDD con las tablas si es que no existen. ** Hecho
 - Hacer tabla de menu con sus respectivas consultas y manejo.

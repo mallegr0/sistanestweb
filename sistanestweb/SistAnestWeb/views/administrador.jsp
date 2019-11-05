@@ -9,18 +9,6 @@
 	<body>
 		<!--CABECERA DE PAGINA -->
 		
-		<!-- Sidebar on click -->
-		<!--<nav class="w3-sidebar w3-bar-block w3-deep-purple w3-card w3-animate-left w3-xxlarge" style="display:none;z-index:2" id="mySidebar">
-			<a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-display-topright w3-text-teal">Close
-		    <i class="fa fa-remove"></i>
-		  </a>
-			<a href="#" class="w3-bar-item w3-button">Link 1</a>
-			<a href="#" class="w3-bar-item w3-button">Link 2</a>
-			<a href="#" class="w3-bar-item w3-button">Link 3</a>
-			<a href="#" class="w3-bar-item w3-button">Link 4</a>
-			<a href="#" class="w3-bar-item w3-button">Link 5</a>
-		</nav>-->
-
 		<!-- MENU -->
 		<div class="w3-top">
 			<div class="w3-bar w3-deep-purple w3-left-align">
@@ -67,16 +55,15 @@
 				</div>
 				
 
-		  <!-- MENU EN PANTALLAS PEQUEÑAS -->
-		  	<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
-			    <a href="#team" class="w3-bar-item w3-button">Team</a>
-			    <a href="#work" class="w3-bar-item w3-button">Work</a>
-			    <a href="#pricing" class="w3-bar-item w3-button">Price</a>
-			    <a href="#contact" class="w3-bar-item w3-button">Contact</a>
-			  </div>
+			  <!-- MENU EN PANTALLAS PEQUEÑAS -->
+			  	<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
+				    <a href="#team" class="w3-bar-item w3-button w3-hover-teal">ALTAS</a>
+				    <a href="#work" class="w3-bar-item w3-button w3-hover-teal">BAJAS</a>
+				    <a href="#pricing" class="w3-bar-item w3-button w3-hover-teal">CONSULTAS</a>
+				    <a href="#contact" class="w3-bar-item w3-button w3-hover-teal">LISTADOS</a>
+				</div>
+			</div>
 		</div>
-
-
 
 		<!--PANTALLA PRINCIPAL DEL ADMINISTRADOR -->
 		<section class="w3-row-padding w3-padding-64 w3-container ">

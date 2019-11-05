@@ -30,8 +30,8 @@ public class Login extends HttpServlet {
 	
 	/* VARIABLES */
 	
-	private CtrlUsuario cu = new CtrlUsuario();
-	private Usuario user = new Usuario();
+	private CtrlUsuario cu = null;
+	private Usuario user = null;
 	
 	/* METODOS */
 	
@@ -42,15 +42,20 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
-		
+			cu = new CtrlUsuario();
+			user = new Usuario();
+			
 			String u = request.getParameter("usuario");
 			String p = request.getParameter("password");
 			String rta = "Hay un problema con el modulo de Login, contacte con el administrador";
 			String url = "";
 			
-			
+			System.out.println("usuario ingresado: "+u);
+			System.out.println("password ingresado: "+p);
 			user.setUser(u);
+			System.out.println("Usuario guardado en variable: "+user.getUser());
 			user.setPassword(p);
+			System.out.println("password guardado en variable: "+user.getPassword());
 			
 			try {
 				user = cu.consultaUsuario(user);
