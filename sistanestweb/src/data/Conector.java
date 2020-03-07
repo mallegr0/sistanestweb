@@ -1,9 +1,6 @@
 package data;
 
 import java.sql.*;
-import java.util.ArrayList;
-
-import entidades.BaseDatos;
 import util.ApplicationException;
 
 
@@ -17,11 +14,11 @@ public class Conector {
 	private Connection conexion;
 	private int cantConn = 0; //cantidad de conexiones a la BBDD
 	private DataBase data = new DataBase();
-	
+	private int fconn = 0; 
 	
 	
 	public Conector(){
-		data.base(db, server, user, pass);
+			fconn = data.base(db, server, user, pass, fconn);	
 		try{
 			Class.forName(driver);
 			conexion = DriverManager.getConnection(server+db, user, pass);

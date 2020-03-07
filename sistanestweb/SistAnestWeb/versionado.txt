@@ -6,7 +6,7 @@
 **********
 
 BBDD
-- Automatizar la BBDD para que no la vuelva a crear siempre que se verifique.
+- Automatizar la BBDD para que no la vuelva a crear siempre que se verifique. -- Hecho 07/03/2020 
 
 JSP
 - index.jsp

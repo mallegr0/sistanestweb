@@ -8,7 +8,6 @@ import entidades.BaseDatos;
 public class DataBase {
 	
 	public DataBase() {}
-	
 	private Connection conn;
 	private Statement st = null;
 	private ResultSet rs = null;
@@ -16,14 +15,16 @@ public class DataBase {
 	private BaseDatos bbdd = new BaseDatos();
 	private ArrayList<String> l = new ArrayList<String>();
 	
-	public void base(String db, String server, String usr, String psw){
+	public int base(String db, String server, String usr, String psw, int fconn){
+		if (fconn == 0){
 		if(validarBBDD(db, server, usr, psw) == false){
 			if(crearBBDD(db, server, usr, psw) == true){ crearTablas(db, server, usr, psw); }
 			}
 		else{
 			System.out.println("La BBDD "+db+" ya existe!!");
 			crearTablas(db, server, usr, psw);
-		}
+		}}
+		return 1;
 	}
 		
 	
