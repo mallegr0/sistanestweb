@@ -6,7 +6,7 @@
 		<title>SISTANEST Web - Anestesista</title>
 		<jsp:include page="meta.jsp"/>
 	</head>
-	<body>
+	<body data-ng-app="Anest" data-ng-controller="cAnest">
 		<!--CABECERA DE PAGINA -->
 		
 		<!-- MENU -->
@@ -30,15 +30,15 @@
 			    	</div>
 				</div>
 				<div class="w3-dropdown-hover w3-hide-small">
-		    		<button class="w3-button w3-hover-teal w3-hover-text-white">Saldos <i class="fa fa-money"></i></button>   
+		    		<button class="w3-button w3-hover-teal w3-hover-text-white">Saldos <i class="fa fa-money fa-lg"></i></button>   
 				</div>
 				<div class="w3-dropdown-hover w3-hide-small w3-right">
-		    		<button class="w3-button w3-hover-teal w3-hover-text-white">Usuario <i class="fa fa-caret-down"></i></button> 
+		    		<button class="w3-button w3-hover-teal w3-hover-text-white"><i class="fa fa-user fa-lg"> </i></button> 
 			    	<div class="w3-dropdown-content w3-card-4 w3-bar-block" style="right: 0">
-				      	<p class="w3-bar-item w3-hover-teal"> Nombre y Apellido del anestesista </p>
-				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Salir<i class="fa fa-logout"></i>
+				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Datos Personales</a>
+				      	<a href="#" class="w3-bar-item w3-button w3-hover-teal">Salir <i class="fa fa-sign-out fa-xl"> </i></a>
 			    	</div>
-				</div></a>
+				</div>
 				
 				
 
@@ -55,19 +55,23 @@
 		<!--PANTALLA PRINCIPAL DEL ADMINISTRADOR -->
 		<section class="w3-row-padding w3-padding-64 w3-container ">
 			<div class="w3-content w3-text-deep-purple">
-				<h1>PAGINA DE Anestesista</h1>
+				<h1>PAGINA DE ANESTESISTA</h1>
 				<ol>
 					<li style="color: red">hacer servlet del anestesista</li>
 					<li style="color: red">hacer spa con los contenidos del menu</li>
 					<li style="color: red">testear</li> 
 				</ol>
-			
+
+				{{var1 + " " + var2}}
 		</section>
 
 		<!--PIE DE PAGINA -->
 		<jsp:include page="footer.jsp"/>
 
 		<!-- SCRIPTS QUE VOY A USAR-->
+		
+		<script src="../angularJS/appanestesista.js"></script>
+		<script src="../angularJS/ctrlAnestesista.js"></script>
 		<jsp:include page="script.jsp"/>
 	</body>
 

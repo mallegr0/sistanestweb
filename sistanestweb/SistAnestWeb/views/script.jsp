@@ -26,3 +26,14 @@
 	  		}
 		}
 	</script>
+
+	<script src="../angularJS/appanestesista.js"></script>
+	<script src="../angularJS/ctrlAnestesista.js"></script>
+
+	<script>
+		var app = angular.module("appAnest",[]);
+		app.controller("ctrlAnest", function($scope){
+			$scope.var1 = "a ver si";
+			$scope.var2 = "esto funciona";
+		});
+	</script>
